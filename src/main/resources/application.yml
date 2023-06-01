@@ -1,6 +1,8 @@
 server:
   port: 8080
-  spring:
-    datasource:
-      url: jdbc://127.0.0.1:5432/bank_db
-
+spring:
+   datasource:
+     url: jdbc://127.0.0.1:5432/bank_db
+   jpa:
+     hibernate:
+       ddl-auto: validate
