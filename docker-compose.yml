@@ -1,0 +1,14 @@
+service:
+  postgresql:
+    container: postgredb
+    image: postgres
+    environment:
+      POSTGRES_USERNAME: amine
+      POSTERES_PWD: amine
+      PG_DATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    port:
+      - "5432:5432"
+volumes:
+  postgres:
