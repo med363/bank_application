@@ -19,6 +19,8 @@ public class Transaction {
     private Integer id;
     private BigDecimal montant;
     private String destination;
+    /*il faut que de type string transert-->'1' Deposit-->'2'*/
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
     @ManyToOne
     @JoinColumn(name = "user_id")

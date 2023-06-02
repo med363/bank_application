@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Account {
     @Id @GeneratedValue
     private Integer id;
+    @Column(unique = true)
     private String iban;
     @OneToOne
     /*ajout foreign key je l'appel user_id or sprint l'a cree automatiquement*/
