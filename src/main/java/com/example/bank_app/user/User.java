@@ -5,10 +5,7 @@ import com.example.bank_app.contact.Contact;
 import com.example.bank_app.role.Role;
 import com.example.bank_app.transaction.Transaction;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class User {
     @Id @GeneratedValue
