@@ -7,16 +7,17 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AccountService {
-    private AccountRepository repository;
+    private final AccountRepository repository;
+    private final  AccountMapper mapper;
     /*cree un account*/
     public Integer save(AccountRequest accountRequest){
         /*transformer de l'objet vers Account*/
-        var account = Account.builder()
+        /*var account = Account.builder()
                 .iban(accountRequest.getIban())
                 .user(User.builder()
                         .id(accountRequest.getUserId())
                         .build())
-                .build();
-        return repository.save(account).getId();
+                .build();*/
+        return repository.save(mapper.toAccount(accountRequest)).getId();
     }
 }

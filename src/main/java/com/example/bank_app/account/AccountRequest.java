@@ -1,5 +1,6 @@
 package com.example.bank_app.account;
 
+import com.example.bank_app.user.User;
 import lombok.*;
 
 @Getter
@@ -14,4 +15,6 @@ public class AccountRequest {
 
     private String iban;
     private Integer userId;
+
+
 }
