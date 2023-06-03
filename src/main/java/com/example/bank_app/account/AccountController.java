@@ -1,10 +1,8 @@
 package com.example.bank_app.account;
 
+import com.example.bank_app.exception.ObjectValidationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*pour dire que c'est un controller*/
 @RestController
@@ -19,9 +17,12 @@ public class AccountController {
     /*return l'id de l'account cree*/
     public Integer save(@RequestBody AccountRequest account){
         return  service.save(account);
-
+    }
+/*absorbe l'exception system*/
+    @ExceptionHandler(ObjectValidationException.class)
+    public String handleException(ObjectValidationException exp){
+        return "err ....";
 
     }
-
 
 }
