@@ -2,6 +2,8 @@ package com.example.bank_app.account;
 
 import com.example.bank_app.user.User;
 import com.example.bank_app.validator.ObjectsValidator;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,21 @@ public class AccountService {
     }
     /*get-> list of account (AcoountResponce c'est class contient ls att id of account ,iban and owner of iban*/
     /*finAll -> object account or on veut un objet de type AccountResponse donc on cree une methode de mapper dans la class AccountMapper*/
+    /*methode transactionnel puisque onetoone fetch mode eager or ontomany fetch mode lazy*/
+    @Transactional
     public List<AccountResponce> finfAll(){
         return repository.findAll()
                 .stream().map(mapper::toResponse)
                 .collect(Collectors.toList());
+    }
+    public AccountResponce finById(Integer id){
+        return  repository.findById(id)
+                .map(mapper::toResponse)
+                .orElseThrow(()-> new EntityNotFoundException("No Account found with ID"));
+    }
+
+    public void delete(Integer id){
+        // check before
+         repository.deleteById(id);
     }
 }
