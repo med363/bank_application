@@ -27,7 +27,7 @@ public class ObjectsValidator<T extends Serializable> {
                    .map(ConstraintViolation::getMessage)
                    .collect(Collectors.toSet());
            /*exception*/
-            throw new ObjectValidationException(errMSG, objectToValidate.getClass().getName());
+            throw new ObjectValidationException(errMSG, objectToValidate.getClass().getSimpleName());
         }
     }
 }

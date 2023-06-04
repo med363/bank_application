@@ -18,11 +18,6 @@ public class AccountController {
     public Integer save(@RequestBody AccountRequest account){
         return  service.save(account);
     }
-/*absorbe l'exception system*/
-    @ExceptionHandler(ObjectValidationException.class)
-    public String handleException(ObjectValidationException exp){
-        return "err ....";
-
-    }
+//on veut absorbe <> exception a chaque controllers donc on besoin de faire class exceptiion handlers global dans le package globalExceptionHandlers*/
 
 }
