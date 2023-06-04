@@ -41,7 +41,7 @@ public class AccountService {
     /*get-> list of account (AcoountResponce c'est class contient ls att id of account ,iban and owner of iban*/
     /*finAll -> object account or on veut un objet de type AccountResponse donc on cree une methode de mapper dans la class AccountMapper*/
     /*methode transactionnel puisque onetoone fetch mode eager or ontomany fetch mode lazy*/
-    @Transactional
+    //@Transactional
     public List<AccountResponce> finfAll(){
         return repository.findAll()
                 .stream().map(mapper::toResponse)
