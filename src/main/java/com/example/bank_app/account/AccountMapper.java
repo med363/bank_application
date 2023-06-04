@@ -18,4 +18,16 @@ public class AccountMapper {
                 .build();
         return account;
     }
+
+    public  AccountResponce toResponse(Account account){
+        /*transformer de l'objet vers AccountResponse*/
+        var accountRes = AccountResponce.builder()
+                .id(account.getId())
+                .iban(account.getIban())
+                .userFirstname(account.getUser().getFistname())
+                .userLastname(account.getUser().getLastname())
+                .build();
+
+        return accountRes;
+    }
 }
