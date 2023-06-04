@@ -22,7 +22,7 @@ public class AccountService {
     private final ObjectsValidator<AccountRequest> validator;
 
     /*cree un account->post*/
-    public Integer save(AccountRequest accountRequest){
+    public Integer create(AccountRequest accountRequest){
 
 /*validation*/
         validator.validate(accountRequest);
