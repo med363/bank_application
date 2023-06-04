@@ -2,6 +2,7 @@ package com.example.bank_app.account;
 
 import com.example.bank_app.user.User;
 import com.example.bank_app.validator.ObjectsValidator;
+import com.example.bank_app.exception.OperationNonPermittedExcption;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,17 @@ public class AccountService {
 
     /*cree un account->post*/
     public Integer save(AccountRequest accountRequest){
+
 /*validation*/
         validator.validate(accountRequest);
+        /*check if user have an account*/
+        var userHasAllreadyAnAccount = repository.existsByUserId(accountRequest
+                .getUserId());
+        /*test if active and have alleready an account*/
+        if (userHasAllreadyAnAccount ){
+            throw new OperationNonPermittedExcption("the selected user has allready an active account");
+
+        }
         return repository.save(mapper.toAccount(accountRequest)).getId();
     }
     /*get-> list of account (AcoountResponce c'est class contient ls att id of account ,iban and owner of iban*/
