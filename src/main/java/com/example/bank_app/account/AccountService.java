@@ -27,7 +27,7 @@ public class AccountService {
         /*check if user have an account*/
         var userHasAllreadyAnAccount = repository.existsByUserId(accountRequest
                 .getUserId());
-        /*test if active*/
+        /*test if active and have alleready an account*/
         if (userHasAllreadyAnAccount ){
             throw new OperationNonPermittedExcption("the selected user has allready an active account");
 
