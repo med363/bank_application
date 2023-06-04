@@ -16,11 +16,11 @@ import java.io.Serializable;
 
 public class AccountRequest implements Serializable {
     /*create account il suffit de l'iban w l'id of user*/
-
+/*
     @NotNull(message = "IBAN should not be null") // null
     @NotEmpty(message = "IBAN should not be empty") // ""
     @NotBlank(message = "IBAN should not be blank") // " "
-    private String iban;
+    private String iban;*/
     @NotNull(message = "user should not be null")
     private Integer userId;
 
