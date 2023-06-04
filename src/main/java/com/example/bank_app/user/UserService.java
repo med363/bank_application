@@ -1,5 +1,6 @@
 package com.example.bank_app.user;
 
+import com.example.bank_app.account.Account;
 import com.example.bank_app.account.AccountRequest;
 import com.example.bank_app.account.AccountService;
 import com.example.bank_app.validator.ObjectsValidator;
@@ -56,9 +57,16 @@ public class UserService {
             var account = AccountRequest.builder()
                     .userId(id)
                     .build();
-            accountService.save(account);
-        }
-
-        return -1;
+            var saveAccountId = accountService.save(account);
+            /*add accountID IN table user*/
+            user.setAccount(
+                    Account.builder()
+                            .id(saveAccountId)
+                            .build()
+            );
+       }
+        //if has an account donc j'active user seullment
+        user.setActive(true);
+        return repository.save(user).getId();
     }
 }
