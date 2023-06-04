@@ -5,6 +5,7 @@ import com.example.bank_app.account.AccountRequest;
 import com.example.bank_app.account.AccountService;
 import com.example.bank_app.validator.ObjectsValidator;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class UserService {
     public void delete(Integer id){
         repository.deleteById(id);
     }
-
+@Transactional(rollbackOn = Exception.class)
     //verif active user
     public Integer validateAccount(Integer userId){
         var user = repository.findById(userId)
