@@ -35,7 +35,7 @@ public class ContactService {
     public ContactResponse findById(Integer contactId){
         return  repository.findById(contactId)
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new EntityNotFoundException("no contact found with id"));
+                .orElseThrow(() -> new EntityNotFoundException("no contact found with id" + contactId));
     }
 
     /*delete*/
