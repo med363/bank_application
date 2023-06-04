@@ -1,6 +1,7 @@
 package com.example.bank_app.handler;
 
 import com.example.bank_app.exception.ObjectValidationException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,5 +21,14 @@ public class GlobalExceptionHandler {
                 .build();
         return expResp;
     }
-
+/*exception in mthode find by Id*/
+    @ExceptionHandler(EntityNotFoundException.class)
+    /*status http*/
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public  ExceptionResponse handle(EntityNotFoundException exp){
+        var expResp = ExceptionResponse.builder()
+                .errMsg(exp.getMessage())
+                .build();
+        return expResp;
+    }
 }
