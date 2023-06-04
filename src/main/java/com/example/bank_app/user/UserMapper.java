@@ -1,7 +1,9 @@
 package com.example.bank_app.user;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public class UserMapper {
     public User toUser(UserRequest request){
         return User.builder()
