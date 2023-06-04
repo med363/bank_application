@@ -20,7 +20,7 @@ public class UserService {
     private final AccountService accountService;
 
     /*post*/
-    public Integer save(UserRequest request){
+    public Integer create(UserRequest request){
         /*necessaire de faire validation de chaque request*/
         validator.validate(request);
         var user = mapper.toUser(request);
@@ -48,16 +48,16 @@ public class UserService {
     }
 
     //verif active user
-    public Integer validateAccount(Integer id){
-        var user = repository.findById(id)
+    public Integer validateAccount(Integer userId){
+        var user = repository.findById(userId)
                 .orElseThrow(()-> new EntityNotFoundException("no user ID for account validation"));
         /*check has account or no*/
         if (user.getAccount() == null){
             //create a bank account
             var account = AccountRequest.builder()
-                    .userId(id)
+                    .userId(userId)
                     .build();
-            var saveAccountId = accountService.save(account);
+            var saveAccountId = accountService.create(account);
             /*add accountID IN table user*/
             user.setAccount(
                     Account.builder()
@@ -68,5 +68,14 @@ public class UserService {
         //if has an account donc j'active user seullment
         user.setActive(true);
         return repository.save(user).getId();
+    }
+
+    //desactive an account
+    public Integer invalidateAccount(Integer userId){
+        var user = repository.findById(userId)
+                .orElseThrow(()-> new EntityNotFoundException("no user ID for account validation"));
+        user.setActive(false);
+        return repository.save(user).getId();
+
     }
 }
