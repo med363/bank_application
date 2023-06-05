@@ -16,4 +16,10 @@ public class AccountRequestValidatorTest {
         assertTrue(exp.getValidation().contains("user should not be null"));
         assertEquals("AccountRequest",exp.getValidationSource());
     }
+
+    @Test
+    /*if usr valid don't show exception*/
+    public  void should_not_throw_exp(){
+        assertDoesNotThrow(()->validator.validate((AccountRequest.builder().userId(1).build())));
+    }
 }
