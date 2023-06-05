@@ -1,5 +1,6 @@
 package com.example.bank_app.account;
 
+import com.example.bank_app.exception.ObjectValidationException;
 import com.example.bank_app.exception.OperationNonPermittedExcption;
 import com.example.bank_app.user.User;
 import com.example.bank_app.validator.ObjectsValidator;
@@ -10,6 +11,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import javax.xml.validation.Validator;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.notNull;
@@ -19,29 +25,32 @@ import static org.mockito.Mockito.when;
 class AccountServiceTest {
     @Mock
     /*on a deux façon d'implimenter les tests unitaire soit -> cree instance soit -> mocking*/
-    private  AccountRepository repository;
+    private AccountRepository repository;
     @Mock
-    private   AccountMapper mapper;
+    private AccountMapper mapper;
     @Mock
     /*mich n3adilo accountRequest por le valider*/
-    private  ObjectsValidator<AccountRequest> validator;
+    private ObjectsValidator<AccountRequest> validator;
     /*account service besoin de trois dependences */
     @InjectMocks
     private AccountService service;
+
     /*aa9bal kol test methode ->before each test methode*/
     @BeforeEach
-    public void setup(){
+    public void setup() {
+        //validator = new ObjectsValidator<>();
         /*ouvre ce ces mock dans la classe en cours*/
         MockitoAnnotations.openMocks(this);
     }
+
     /*methode test d create un account */
     @Test
-    public void should_create_account(){
+    public void should_create_account() {
         /*objet account && request*/
         var request = AccountRequest.builder()
                 .userId(1)
                 .build();
-        var account =  Account.builder()
+        var account = Account.builder()
                 .id(10)
                 .user(User.builder().id(1).build())
                 .build();
@@ -62,18 +71,20 @@ class AccountServiceTest {
         verify(repository.existsByIban(notNull()));
         verify(repository.save(account));
         /*lazmo iraja3 l'id =10*/
-        assertEquals(10,id);
+        assertEquals(10, id);
 
     }
 
     /*test user have allreaady an account*/
     @Test
-    public void should_throw_operation_non_prmitted_exception_if_user_has_an_account(){
+    public void should_throw_operation_non_prmitted_exception_if_user_has_an_account() {
         var request = AccountRequest.builder()
                 .userId(1)
                 .build();
         when(repository.existsByUserId(request.getUserId())).thenReturn(true);
-        assertThrows(OperationNonPermittedExcption.class,()-> service.create(request));
-
+        var exp = assertThrows(OperationNonPermittedExcption.class, () -> service.create(request));
+        /*verify some msg as in AccountSrv*/
+        assertEquals("the selected user has allready an active account", exp.getMessage());
     }
+
 }
