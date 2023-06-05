@@ -43,4 +43,15 @@ public class GlobalExceptionHandler {
                 .build();
         return expResp;
     }
+/*capter n'import quelle exception*/
+    @ExceptionHandler(Exception.class)
+    /*status http*/
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public  ExceptionResponse handle(){
+        // log
+        var expResp = ExceptionResponse.builder()
+                .errMsg("Oups, persistance err ,contact the admin")
+                .build();
+        return expResp;
+    }
 }
