@@ -11,7 +11,7 @@ public class AccountMapper {
     public  Account toAccount(AccountRequest request){
         /*pour que test handle null req*/
         if(request == null){
-            return null;
+            return new Account();
         }
         /*transformer de l'objet vers Account*/
         var account = Account.builder()

@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountMapperTest {
     /*je veut test accountMapper -> cree un objet de l'account mapper*/
-    private final AccountMapper mapper = new AccountMapper();
+    private static final AccountMapper mapper = new AccountMapper();
     /*tous les test sont de type void*/
     @Test
-    public void should_map_from_Account_request_to_Account(){
+    public static void should_map_from_Account_request_to_Account(){
         var req = AccountRequest.builder()
                 .userId(1)
                 .build();
@@ -30,7 +30,8 @@ class AccountMapperTest {
     public void should_handle_null_request(){
         /*corriger mon code -> class AccountMapper*/
         var account = mapper.toAccount(null);
-        Assertions.assertNull(account);
+        //manistanech fi objet null
+        assertNotNull(account);
     }
 
 }
