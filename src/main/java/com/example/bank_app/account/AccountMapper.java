@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 
 public class AccountMapper {
     /*methode generale transfert de lèobjet req vers account*/
-    public static Account toAccount(AccountRequest request){
+    public  Account toAccount(AccountRequest request){
         /*transformer de l'objet vers Account*/
         var account = Account.builder()
-                .iban(request.getIban())
                 .user(User.builder()
                         .id(request.getUserId())
                         .build())
@@ -30,4 +29,5 @@ public class AccountMapper {
 
         return accountRes;
     }
+    //ctr+shift+t-> test
 }
