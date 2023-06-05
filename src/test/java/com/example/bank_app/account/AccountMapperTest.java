@@ -26,5 +26,11 @@ class AccountMapperTest {
         Assertions.assertNull(account.getIban());
     }
 
+    @Test
+    public void should_handle_null_request(){
+        /*corriger mon code -> class AccountMapper*/
+        var account = mapper.toAccount(null);
+        Assertions.assertNull(account);
+    }
 
 }

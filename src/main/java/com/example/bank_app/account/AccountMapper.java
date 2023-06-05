@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 public class AccountMapper {
     /*methode generale transfert de lèobjet req vers account*/
     public  Account toAccount(AccountRequest request){
+        /*pour que test handle null req*/
+        if(request == null){
+            return null;
+        }
         /*transformer de l'objet vers Account*/
         var account = Account.builder()
                 .user(User.builder()
