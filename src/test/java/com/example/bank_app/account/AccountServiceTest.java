@@ -1,5 +1,6 @@
 package com.example.bank_app.account;
 
+import com.example.bank_app.exception.OperationNonPermittedExcption;
 import com.example.bank_app.user.User;
 import com.example.bank_app.validator.ObjectsValidator;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ class AccountServiceTest {
         /*ouvre ce ces mock dans la classe en cours*/
         MockitoAnnotations.openMocks(this);
     }
-    /*methode test*/
+    /*methode test d create un account */
     @Test
     public void should_create_account(){
         /*objet account && request*/
@@ -63,8 +64,16 @@ class AccountServiceTest {
         /*lazmo iraja3 l'id =10*/
         assertEquals(10,id);
 
-
-
     }
 
+    /*test user have allreaady an account*/
+    @Test
+    public void should_throw_operation_non_prmitted_exception_if_user_has_an_account(){
+        var request = AccountRequest.builder()
+                .userId(1)
+                .build();
+        when(repository.existsByUserId(request.getUserId())).thenReturn(true);
+        assertThrows(OperationNonPermittedExcption.class,()-> service.create(request));
+
+    }
 }
