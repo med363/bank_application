@@ -22,4 +22,5 @@ public class AccountRequestValidatorTest {
     public  void should_not_throw_exp(){
         assertDoesNotThrow(()->validator.validate((AccountRequest.builder().userId(1).build())));
     }
+    /*pour excute tout les test on va cree un class AccountServiceSpringTest*/
 }
