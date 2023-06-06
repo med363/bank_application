@@ -1,6 +1,8 @@
-service:
-  postgresql:
-    container: postgredb
+---
+version: "3"
+services:
+  postgres:
+    container_name: postgres-sql
     image: postgres
     environment:
       POSTGRES_USERNAME: amine
@@ -8,7 +10,8 @@ service:
       PG_DATA: /data/postgres
     volumes:
       - postgres:/data/postgres
-    port:
+    ports:
       - "5432:5432"
+    restart: always
 volumes:
-  postgres:
+    postgres:
