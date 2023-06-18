@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,6 +23,7 @@ public class Transaction {
     /*il faut que de type string transert-->'1' Deposit-->'2'*/
     @Enumerated(EnumType.STRING)
     private TransactionType type;
+    private LocalDate transactionDate;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user1;

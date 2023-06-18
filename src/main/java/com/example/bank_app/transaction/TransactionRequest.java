@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class TransactionRequest implements Serializable {
     private BigDecimal montant;
     private String destination;
     private TransactionType type;
+    private LocalDate transactiondate;
     /*user transaction done*/
     private Integer userId;
 

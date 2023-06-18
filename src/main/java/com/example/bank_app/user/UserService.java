@@ -3,12 +3,15 @@ package com.example.bank_app.user;
 import com.example.bank_app.account.Account;
 import com.example.bank_app.account.AccountRequest;
 import com.example.bank_app.account.AccountService;
+import com.example.bank_app.transaction.TransactionRepository;
+import com.example.bank_app.transaction.TransactionType;
 import com.example.bank_app.validator.ObjectsValidator;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,9 @@ public class UserService {
     private final ObjectsValidator<UserRequest> validator;
     private final UserMapper mapper;
     private final AccountService accountService;
+    /*inject transaction repo*/
+    private final TransactionRepository transactionRepository;
+
 
     /*post*/
     public Integer create(UserRequest request){
@@ -78,5 +84,20 @@ public class UserService {
         user.setActive(false);
         return repository.save(user).getId();
 
+    }
+
+    //methode to get montant of my account
+    public BigDecimal getAccountBalance(Integer userId) {
+        /*create methode find in transaction repo*/
+        return transactionRepository.findAccountBalance(userId);
+    }
+
+    /*methode to get highest ammount transfer*/
+    public BigDecimal highestTransfer(Integer userId) {
+        return transactionRepository.findHighestAmountByTransactionType(userId, TransactionType.TRANSFERT);
+    }
+    /*methode to highst depot 9adeh sab flous*/
+    public BigDecimal highestDeposit(Integer userId) {
+        return transactionRepository.findHighestAmountByTransactionType(userId, TransactionType.DEPOSIT);
     }
 }

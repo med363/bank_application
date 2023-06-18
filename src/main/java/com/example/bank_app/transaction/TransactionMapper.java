@@ -3,12 +3,15 @@ package com.example.bank_app.transaction;
 import com.example.bank_app.user.User;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class TransactionMapper {
     public Transaction toTransaction(TransactionRequest request){
 return Transaction.builder()
         .montant(request.getMontant())
         .type(request.getType())
+        .transactionDate(LocalDate.now())
         /*id of user*/
         .user1((
                 User.builder()
