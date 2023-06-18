@@ -22,7 +22,8 @@ public class UserMapper {
                 .lastname(User.getLastname())
                 .email(User.getEmail())
                 .active(User.getActive())
-                .iban(User.getAccount().getIban())
+                /*test d'integration user inscrie for the first no have an iban*/
+                .iban(User.getAccount() == null ? null : User.getAccount().getIban())
                 .password(User.getPassword()).build();
 
     }
