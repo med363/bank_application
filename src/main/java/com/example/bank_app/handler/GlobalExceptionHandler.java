@@ -3,6 +3,7 @@ package com.example.bank_app.handler;
 import com.example.bank_app.exception.ObjectValidationException;
 import com.example.bank_app.exception.OperationNonPermittedExcption;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 //ecouteur du controllers
 @RestControllerAdvice
+//log *>class logger
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(ObjectValidationException.class)
     /*status http*/
@@ -47,8 +50,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     /*status http*/
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public  ExceptionResponse handle(){
+    public  ExceptionResponse handle(Exception exp){
         // log
+        log.error("error accurred",exp);
         var expResp = ExceptionResponse.builder()
                 .errMsg("Oups, persistance err ,contact the admin")
                 .build();
