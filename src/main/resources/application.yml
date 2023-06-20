@@ -16,3 +16,7 @@ spring:
      database: postgresql
      database-platform: org.hibernate.dialect.PostgreSQL.Dialect
 
+   security:
+     jwt:
+       secret-key: aassaddsdsd
+
